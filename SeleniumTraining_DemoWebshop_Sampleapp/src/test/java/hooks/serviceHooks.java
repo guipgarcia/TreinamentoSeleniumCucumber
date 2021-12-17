@@ -32,5 +32,6 @@ public class serviceHooks {
         writeOnScren("Scenario Name - " + scenario.getName());
         writeOnScren("Status - " + scenario.getStatus());
         DriverFactory.quitDriver();
+        genericMethods.clearHashMap();
     }
 }

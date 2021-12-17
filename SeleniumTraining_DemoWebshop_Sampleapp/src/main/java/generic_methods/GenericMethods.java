@@ -7,12 +7,14 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import project_global_variables.GlobalVariables;
 
 
 public class GenericMethods{
     private WebDriver driver;
     private WebDriverWait wait;
     private String currentApplication;
+
 
     public GenericMethods(){
         driver = DriverFactory.getDriver();
@@ -28,6 +30,17 @@ public class GenericMethods{
         System.out.println(message);
     }
 
+    public void saveText(String key, String value){
+        GlobalVariables.textManager.put(key, value);
+    }
+
+    public String returnText(String key){
+        return GlobalVariables.textManager.get(key);
+    }
+
+    public void clearHashMap(){
+        GlobalVariables.textManager.clear();
+    }
     // ###################### WAIT METHODS ######################
     public void sleep(long miliseconds){
         try {
@@ -64,6 +77,18 @@ public class GenericMethods{
     }
 
     public void highlight(WebElement element){
-        executeJavaScript("arguments[0].style.border = argumetns[1]", element, "solid 4px red");
+        executeJavaScript("arguments[0].style.border = arguments[1]", element, "solid 4px red");
+    }
+
+    // ###################### EXPECTED CONDITIONS METHODS ###########################
+    public boolean isElementVisible(WebElement element){
+        boolean visibility = false;
+        try{
+            wait.until(ExpectedConditions.visibilityOf(element));
+            visibility = true;
+        }catch (Exception e){
+
+        }
+        return visibility;
     }
 }
